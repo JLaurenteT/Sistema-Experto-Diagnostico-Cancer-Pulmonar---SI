@@ -12,6 +12,7 @@ public class SistemaExpertoDiagnosticoCancerPulmonar {
         int contadorSintomas = 0;
         int contadorFactoresRiesgo = 0;
 
+        
         // Carga el archivo Prolog
         Query q1 = new Query("consult", new Term[] {new org.jpl7.Atom("src/experto.pl")});
         System.out.println("consult " + (q1.hasSolution() ? "succeeded" : "failed"));
