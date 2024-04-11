@@ -144,9 +144,6 @@ public class InterfazEncuesta extends javax.swing.JFrame {
             checkBoxesLista.add(checkBox);
             panel.add(checkBox);
         }
-        JCheckBox checkBoxOtro = new JCheckBox("Otro");
-        checkBoxesLista.add(checkBoxOtro);
-        panel.add(checkBoxOtro);
 
         return panel;
     }
@@ -157,11 +154,50 @@ public class InterfazEncuesta extends javax.swing.JFrame {
         return;
     }
     
-    int contadorSintomas = (int) checkBoxesSintomas.stream().filter(JCheckBox::isSelected).count();
-    int contadorFactoresRiesgo = (int) checkBoxesCausas.stream().filter(JCheckBox::isSelected).count();
-    
-    double porcentajeFactoresRiesgo = contadorFactoresRiesgo * 8.0;
-    double porcentajeFinal = contadorSintomas * 16.5 + porcentajeFactoresRiesgo;
+    double porcentajeFinal = 0.0;
+
+    // Calculando el porcentaje total basado en síntomas seleccionados
+    for (JCheckBox checkBox : checkBoxesSintomas) {
+        if (checkBox.isSelected()) {
+            // Asignando el porcentaje específico a cada síntoma
+            switch (checkBox.getText()) {
+                case "tos_persistente":
+                    porcentajeFinal += 3.70; // Ejemplo de porcentaje para la tos persistente
+                    break;
+                case "dificultad_respiratoria":
+                    porcentajeFinal += 3.30; // Ejemplo de porcentaje para el dolor de pecho
+                    break;
+                case "perdida_peso":
+                    porcentajeFinal += 3.70; // Ejemplo de porcentaje para el dolor de pecho
+                    break;
+                case "dolor_taracico":
+                    porcentajeFinal += 5.00; // Ejemplo de porcentaje para la pérdida de peso
+                    break;
+                
+            }
+        }
+    }
+
+    // Calculando el porcentaje total basado en factores de riesgo seleccionados
+    for (JCheckBox checkBox : checkBoxesCausas) {
+        if (checkBox.isSelected()) {
+            // Asignando el porcentaje específico a cada factor de riesgo
+            switch (checkBox.getText()) {
+                case "tabaquismo":
+                    porcentajeFinal += 15.75; // Ejemplo de porcentaje para el tabaquismo
+                    break;
+                case "exposicion_radon":
+                    porcentajeFinal += 17.60; // Ejemplo de porcentaje para la exposición al asbesto
+                    break;
+                case "asbesto":
+                    porcentajeFinal += 31.50; // Ejemplo de porcentaje para antecedentes familiares
+                    break;
+                case "contaminacion_aire":
+                    porcentajeFinal += 6.30; // Ejemplo de porcentaje para antecedentes familiares
+                    break;
+            }
+        }
+    }
     
     StringBuilder mensaje = new StringBuilder();
     mensaje.append("Datos Personales:\n");
